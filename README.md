@@ -2,7 +2,7 @@
 This is a full-stack project which you can submit a chess game to be analyzed by an AI, to guess your Lichess Elo on each move. It is useful because I think it is fun to see what level you thought you played at vs what an AI thought you played at.
 
 # How to use
-
+Go to ceg.honeybuggy.com
 
 # Attributions
 
