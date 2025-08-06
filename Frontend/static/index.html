@@ -74,6 +74,12 @@
     </div>
 
     <div style="text-align: start">
+        <h5>About this project:</h5>
+        <p class="ms-2">
+            This is an interface to talk to a chess bot I have been working on for about a month. The model takes in a
+            chess game and analyzes it before returning a prediction of both players' elo at each turn. I developed the
+            frontend and backend for this application by myself. 
+        </p>
         <h5>How to use:</h5>
         <ol>
             <li>Paste a PGN directly or enter a valid Lichess game URL in the input fields above.</li>
@@ -89,7 +95,8 @@
             Lichess link; In that case, it only uses the PGN of the game.<br><br>
 
             To avoid overlap with training data:
-            All training data came from the <a href="https://database.lichess.org/" target="_blank" rel="noopener noreferrer">Lichess public database</a>.
+            All training data came from the <a href="https://database.lichess.org/" target="_blank"
+                                               rel="noopener noreferrer">Lichess public database</a>.
             Most of the data comes from January 2025, with some additional data for rare brackets (e.g., <500 or
             >2800) pulled
             from parts of 2024 and January – June 2025. To avoid potential overlap with the training data, please avoid
@@ -211,8 +218,10 @@
             <li>Because Lichess games are capped at 300 half moves, a transformer could possibly be used to output a
                 final distribution for all games.
             </li>
-            <li>Using a different distribution for the target rather than normally distributed. A static normal distribution was chosen
-                for simplicity (also because that is how the Elo model was defined), however, most modern chess elo models (such as what Lichess uses) actually use different distributions.
+            <li>Using a different distribution for the target rather than normally distributed. A static normal
+                distribution was chosen
+                for simplicity (also because that is how the Elo model was defined), however, most modern chess elo
+                models (such as what Lichess uses) actually use different distributions.
             </li>
         </ul>
 
@@ -242,7 +251,8 @@
             See full attributions on GitHub
         </p>
         <h5>Links: </h5>
-        <a href="https://github.com/gliucode/chess-elo-guesser" target="_blank" class="btn btn-dark" rel="noopener noreferrer"
+        <a href="https://github.com/gliucode/chess-elo-guesser" target="_blank" class="btn btn-dark"
+           rel="noopener noreferrer"
            style="background-color: #a3a3a3">
             <i class="fab fa-github me-2"></i> View on GitHub
         </a>
