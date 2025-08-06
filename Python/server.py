@@ -51,11 +51,25 @@ promo_map = {
 }
 
 
-@app.route("/infer")
+@app.route("/infer", methods=["GET", "POST"])
 def infer():
     try:
-        pgn_value = request.args.get('pgn')
+        # 1) grab pgn_value depending on method
+        if request.method == "POST":
+            body = request.get_json(silent=True) or {}
+            pgn_value = body.get("pgn", "")
+        else:
+            pgn_value = request.args.get("pgn", "")
+
+        # 2) validate
+        if not pgn_value:
+            return flask.jsonify({"error": "No PGN provided."}), 400
+
+        # 3) parse
         game = pgn.read_game(io.StringIO(pgn_value))
+        if game is None:
+            return flask.jsonify({"error": "Could not parse PGN."}), 400
+
         formatted = [[0, 0], [], [], []]
 
         for move in game.mainline_moves():

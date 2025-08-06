@@ -271,8 +271,13 @@ function fetchPGN(pgn, isStandardGame) {
 
     currentMove = 0;
 
-    fetch('/infer?pgn=' + encodeURIComponent(pgn))
-        .then(response => {
+    fetch('/infer', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ pgn })
+    })        .then(response => {
             if (!response.ok) {
                 console.log(response.status)
                 if (response.status === 429) {
