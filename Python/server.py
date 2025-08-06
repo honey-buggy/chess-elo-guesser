@@ -18,8 +18,7 @@ from Python.main.net import Model
 device = torch.device("cpu")
 model = Model().to(device)
 model = torch.compile(model)
-model.load_state_dict(torch.load("chess_elo_model.pt"))
-
+model.load_state_dict(torch.load("chess_elo_model.pt", map_location=torch.device('cpu')))
 model.eval()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
