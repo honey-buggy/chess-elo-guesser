@@ -253,8 +253,13 @@ function fetchPGN(pgn, isStandardGame) {
     collapseElement.classList.remove('show');
     collapseElement.style.transition = '';
 
-    setStatus("<div class=\"spinner-border\"></div>", "");
-
+    setStatus(`
+  <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+    <div class="spinner-border mb-3" role="status"></div>
+    <p>Please wait. This can take up to 30 seconds.</p>
+  </div>
+`, "");
+    
     data.fens = []
     const history = chess.history()
     chess.reset()

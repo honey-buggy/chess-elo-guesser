@@ -15,7 +15,7 @@ h3, h4, h5 {
     max-width: 1400px;
     margin: 20px;
     background: #1f2227;
-    padding: 2rem 2.5rem 3rem 2.5rem;
+    padding: 2.5% !important;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
