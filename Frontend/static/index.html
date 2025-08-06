@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Elo Guesser thingY (CEGY)</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/chessground@8.4.0/assets/chessground.base.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/chessground@8.4.0/assets/chessground.cburnett.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/chessground@8.4.0/assets/chessground.brown.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="index.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/cyborg/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4 text-center">
+    <h3>Chess Elo Guesser thingY (CEGY)</h3><br>
+
+    <div class="mt-0">
+        <div class="input-group mb-3">
+            <label for="pgn"></label><textarea maxlength="20000" type="text" id="pgn" class="form-control" name="pgn"
+                                               placeholder="Enter PGN" rows="1"></textarea>
+            <button class="btn btn-primary" id="pgn-button">GO</button>
+        </div>
+        <div class="my-3 fw-bold text-muted">OR</div>
+        <div class="input-group mb-0">
+            <label for="link"></label><input maxlength="20000" type="text" class="form-control" name="link" id="link"
+                                             placeholder="Enter Lichess Link (e.g. https://lichess.org/gameid123/white)">
+            <button class="btn btn-primary" id="link-button">GO</button>
+        </div>
+
+    </div>
+    <hr>
+    <div id="status" class="alert alert-primary" style="display: none"></div>
+    <div class="collapse" id="collapse-container">
+        <div id="box">
+            <div id="board-container" tabindex="0">
+                <div id="board" tabindex="0"></div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <span class="mt-3" id="move-counter">hi</span>
+                    <div style="padding: 0; margin: 0; width: 70%; display: flex; justify-content: flex-end; gap: 5px;">
+                        <a type="button" class="btn btn-primary board-btn" id="export" style="width:120px !Important"
+                           href=""
+                           target="_blank" rel="noopener">
+                            Export
+                        </a>
+                        <button type="button" class="btn btn-primary board-btn" id="flip-btn">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary board-btn" id="end-btn">
+                            <i class="bi bi-arrow-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary board-btn" id="start-btn">
+                            <i class="bi bi-arrow-down"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary board-btn" id="prev-btn">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary board-btn" id="next-btn">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="charts">
+                <canvas id="white-chart"></canvas>
+                <br>
+                <canvas id="black-chart"></canvas>
+            </div>
+
+        </div>
+        <hr>
+    </div>
+
+    <div style="text-align: start">
+        <h4>About this project:</h4>
+        <p class="ms-2">
+            This is a chess Elo prediction model that estimates your Lichess rating move by move throughout a blitz
+            game.
+            You can input either a link or a PGN.
+            The model analyzes the full game and outputs a live confidence chart of likely Elo brackets as well as a
+            single point estimate.
+            This model does not search online for your rating or any external information except when you provide a
+            Lichess link; In that case, it only uses the PGN of the game.<br><br>
+
+            To avoid overlap with training data:
+            All training data was sourced from the <a href="https://database.lichess.org/">Lichess public database</a>.
+            Most of the data comes from January 2025, with some additional data for rare brackets (e.g, <500 or
+            >2800) pulled
+            from parts of 2024 and January – June 2025. To avoid potential overlap with the training data, please avoid
+            using games played between July 2024 and July 2025 (inclusive).
+        </p>
+        <hr>
+        <h4>Stuff for nerds:</h4>
+        <h5>Data and Training</h5>
+        <p class="ms-2">
+            Most games were played within June 2025, although some rarer brackets required multiple months up to June 2025 as well as parts of 2024. Only games labeled "Rated Blitz game" that had greater than 10
+            half moves were included. Blitz was chosen because
+            it yielded a good balance of data noise and quantity. Games were balanced such that the ratio between the
+            largest and smallest bracket was at most 4:1.
+            Because of the slowness of Python, games were filtered and parsed via Java/Kotlin into a custom intermediate
+            format.
+            After filtering and balancing, the training data included 2,451,672 games, approximately 1% of which were
+            reserved for
+            validation.
+            Labels were generated by integrating each bracket using a normal distribution centered on the true Elo, with
+            a standard
+            deviation of 200.
+            Training was done just over 7 epochs with a batch size of 64 using a modified form of Kullback-Leibler loss.
+            Mixed precision was used.
+        </p>
+        <canvas id="loss-chart"></canvas>
+
+        <h5>Architecture</h5>
+        <p class="ms-2">
+            Each board "frame" is converted into an embedding in the following process:
+            For every square on the board, an embedding is generated by summing a learned piece embedding with a learned
+            square embedding. Two additional learned highlight embeddings are applied to the <i>from</i> and <i>to</i>
+            squares of the
+            move. In cases of promotion, a separate learned promotion embedding is also added to the <i>to</i> square.
+            The resulting board representation is then processed by a convolutional neural network (CNN), which captures
+            local spatial patterns
+            and produces an embedding sequence. This sequence is passed into two dedicated LSTM networks, one for
+            predicting White's Elo and
+            one for predicting Black's Elo.
+            The outputs of the LSTMs are passed through two linear layers to produce probability distributions over
+            possible Elo ratings for both players.
+            This CNN-LSTM hybrid architecture was chosen because it offered significantly faster inference relative to
+            transformer
+            models, while leveraging CNN strengths for spatial pattern recognition.
+        </p>
+        <img src="architecture.svg" class="img-fluid" alt="architecture" style="margin: 20px">
+        <h5>Performance Metrics</h5>
+        <p class="ms-2">
+            When plotting true versus predicted elo on 10,000 unseen games with more than 30 half-moves, the model
+            achieves an R<sup>2</sup> of .86,
+            indicating a strong correlation. The
+            model also manages to achieve an R-MSE of about 277 Elo points, which is 39.5% more than the
+            theoretical minimum of 200.
+            Future refinements may further close the gap toward the theoretical lower bound.
+        </p>
+        <canvas id="scatter-chart"></canvas>
+
+        <h5>Limitations</h5>
+        <p class="ms-2">
+        <ul>
+            <li><strong>Time controls/Variants: </strong>This model was trained strictly on standard blitz, therefore
+                the model's outputs for bullet, rapid,
+                classical, or any variant may be unreliable.
+            </li>
+            <li><strong>Short games: </strong>Accuracy degrades on short games because of the limited move context.</li>
+            <li><strong>Hyperparameter tuning: </strong>Parameters were determined via random sampling rather than
+                rigorous grid search, so further optimization could yield gains.
+            </li>
+        </ul>
+        </p>
+
+        <h5>Future Work</h5>
+        <p class="ms-2">
+        <ol>
+            <li>Expanding to other time controls by sourcing larger rapid/classical datasets or filtering bullet games
+                for stability.
+            </li>
+            <li>Releasing a lighter model if demand justifies reduced resource requirements.</li>
+            <li>Releasing a heavier model to reduce R-MSE closer to the theoretical lower bound.</li>
+        </ol>
+        </p>
+        <h5>Tech Stack</h5>
+        <p class="ms-2">
+            Languages: Python 3.12.3, Java, Kotlin, JavaScript, HTML/CSS<br>
+            Frameworks & Libraries: PyTorch, Flask, MessagePack, bhlangonijr/chesslib, python-chess, ChessGround<br>
+            Tools: IntelliJ, PyCharm, WebStorm<br>
+            See full attributions on GitHub
+        </p>
+        <h5>Links: </h5>
+        <a href="asdf" target="_blank" class="btn btn-dark" style="background-color: #a3a3a3">
+            <i class="fab fa-github me-2"></i> View on GitHub
+        </a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+        integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="index.js"></script>
+<script type="module" src="tables.js"></script>
+<script>
+    const textarea = document.getElementById('pgn');
+
+    function autoResize() {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+    textarea.addEventListener('input', autoResize);
+    autoResize();
+</script>
+
+</body>
+
+</html>
