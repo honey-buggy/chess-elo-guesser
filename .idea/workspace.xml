@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="make server work">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="changed some text" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -177,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754511594456</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="changed some text">
+      <option name="closed" value="true" />
+      <created>1754513582642</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1754513582642</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -207,6 +212,7 @@
     <MESSAGE value="update requirements.txt" />
     <MESSAGE value="text" />
     <MESSAGE value="make server work" />
-    <option name="LAST_COMMIT_MESSAGE" value="make server work" />
+    <MESSAGE value="changed some text" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed some text" />
   </component>
 </project>
