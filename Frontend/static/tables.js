@@ -69,7 +69,7 @@ const options1 = {
     plugins: {
         subtitle:{
             display: true,
-            text: '(Only 1000 data points shown)',
+            text: '(Representative 1000 data points shown)',
             font: {
                 size: 16,
                 weight: 'bold'

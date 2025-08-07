@@ -6,8 +6,8 @@ body {
 }
 
 h3, h4, h5 {
-    color: #fff;
-    font-weight: 700;
+    color: #297bff !Important;
+    font-weight: bold !Important;
     margin-bottom: 0.5rem;
 }
 

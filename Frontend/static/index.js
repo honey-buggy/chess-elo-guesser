@@ -30,15 +30,15 @@ const options = {
     scales: {
         x: {
             ticks: {
-                align: 'center'
-            }
+               align: 'center',
+            },
         },
 
         y: {
             min: 0,
             suggestedMax: 0.2,
-            beginAtZero: true
-        }
+            beginAtZero: true,
+     }
     },
     plugins: {
         title: {

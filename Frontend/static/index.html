@@ -76,65 +76,62 @@
     <div style="text-align: start">
         <h5>About this project:</h5>
         <p class="ms-2">
-            This is an interface to talk to a chess AI bot I have been working on for about a month. The model takes in a
-            chess game and analyzes it before returning a prediction of both players' elo at each turn. I developed the
-            frontend and backend for this application by myself.
+            This is an interface to talk to a chess AI bot that analyzes a chess game at each turn and returns a
+            prediction
+            of both players' elo. Please have fun comparing how well you think you performed compared to what the model
+            thinks!
+            I have been working on this project on my own since June 2025.
         </p>
         <h5>How to use:</h5>
         <ol>
-            <li>Paste a PGN directly or enter a valid Lichess game URL in the input fields above.</li>
+            <li>Paste a valid PGN or Lichess game URL in the input fields above (preferably Blitz).</li>
             <li>Press GO and wait for the server to respond.</li>
             <li>Use the buttons below the board to navigate through the moves, flip the board, or export the prediction
                 data.
             </li>
-            <li>The confidence charts show the model's certainty about the player's rating at each point in the game.
+            <li>The model's prediction is based solely on the current
+                game; it's not influenced by the players' ratings from external sources.
             </li>
         </ol>
         <p class="ms-2">
-            This model does not search online for your rating or any external information except when you provide a
-            Lichess link; In that case, it only uses the PGN of the game.<br><br>
-
-            To avoid overlap with training data:
+            <strong>To avoid overlap with training data:</strong>
             All training data came from the <a href="https://database.lichess.org/" target="_blank"
-                                               rel="noopener noreferrer">Lichess public database</a>.
-            Most of the data comes from January 2025, with some additional data for rare brackets (e.g., <500 or
-            >2800) pulled
-            from parts of 2024 and January – June 2025. To avoid potential overlap with the training data, please avoid
-            using games played between July 2024 and July 2025 (inclusive).
+                                               rel="noopener noreferrer">Lichess public database</a>
+            between July 2024 and July 2025. To avoid potential overlap with
+            the training data, please avoid
+            using games played during that period.
+            <br>
+            <br>
         </p>
         <h5>What do the outputs mean?:</h5>
         <p class="ms-2">
             <strong>Elo Confidence Charts:</strong><br>
-            The charts show the model’s estimated probability distribution over different Elo rating brackets for
-            each
-            player as the game progresses. The height of each bar or curve shows the model’s confidence that the
-            player’s rating falls between the label or the label + 100 at a given move. For example, if the bar for 1500
-            is 0.2, then that
-            means the model is 20% confident the player's rating is between 1500 and 1600. Watching the chart live shows
-            how the model’s confidence changes based on the moves played.
+            The charts display the model’s confidence in its rating predictions for each player up to the current move.
+            For example, if the bar for 1500 is at 0.12, it means the model is 12% confident that the player's rating
+            falls
+            between 1500 and 1600.
+            In practice, the model’s confidence in any specific range rarely exceeds 20%.
         </p>
         <p class="ms-2">
             <strong>Point Estimate:</strong><br>
-            The model provides a single Elo rating estimate for each player at every move.
-            This point estimate is calculated by finding the rating value that best fits the predicted probability
-            distribution, minimizing the difference between the model’s output and a smooth normal distribution centered
-            at that rating. You can interpret it as the model's best guess of the player's skill at that moment.</p>
-
+            Simply speaking, it is the model's best prediction of the player's skill up to that move. Technically
+            speaking,
+            it is calculated by finding the rating value \(x\) that produces the most similarity between
+            the model’s output and a normal distribution centered at \(x\) with \(\sigma=200\). </p>
+        <p class="ms-2">
+        </p>
         <hr>
-        <h4 style="text-align: center;">Stuff for nerds:</h4><br>
+        <h4 style=" text-align: center;">Stuff for nerds:</h4><br>
         <h5>Data and Training</h5>
         <ul>
-            <li>The training data consisted of 2,451,672 blitz games, filtered to include only "Rated Blitz" games with
-                >10
-                half-moves.
+            <li>The dataset started out with about 900,000,000 games sourced from the Lichess public database.</li>
+            <li>Games were filtered to only include "Rated Blitz" games with more than 10 half-moves.</li>
+            <li>Games were then placed into groups of interval 100 based on the average elo of both players (400-499,
+                500-599,...3000-3099).
             </li>
-            <li>Games were balanced across Elo brackets such that the ratio between the most and least common
-                classes is less than 4:1.
-            </li>
-            <li>Most data comes from June 2025, with additional months used for rare rating brackets.</li>
-            <li>Because of the slowness of Python, games were filtered and parsed via Java/Kotlin into an
-                intermediate format.
-            </li>
+            <li>The final training dataset included 2,451,672 games, selected using stratified random sampling. The
+                sampling was balanced so that the largest group contributed no more than four times as many games as the
+                smallest group.</li>
         </ul>
         <h5>Labels</h5>
         <p class="ms-2">
@@ -142,7 +139,7 @@
             200), and integrated across output brackets.
         </p>
         <ul>
-            <li>Training was done for just over 7 epochs with batch size 64.</li>
+            <li>Training was done for over 7 epochs with batch size 64.</li>
             <li>Loss was calculated using Kullback-Leibler loss across all time-steps.</li>
         </ul>
         <canvas id="loss-chart"></canvas>
@@ -157,8 +154,8 @@
             <li>Special learned embeddings are added to the <i>from</i> and <i>to</i> squares for each move. If the move
                 is a promotion, a separate promotion embedding is added to the <i>to</i> square.
             </li>
-            <li> The resulting board representation is passed through a Convolutional Neural Network (CNN) to capture
-                spatial patterns.
+            <li> The resulting board representation is passed through a Convolutional Neural Network (CNN) to create an
+                embedding.
             </li>
         </ol>
         <p class="ms-2">
