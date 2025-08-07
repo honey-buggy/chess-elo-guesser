@@ -5,13 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="text">
+      <change afterPath="$PROJECT_DIR$/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img_1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/CEG.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CEG.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/static/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/static/architecture.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/static/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/static/tables.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/tables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/static/loss_tracking.csv" beforeDir="false" afterPath="$PROJECT_DIR$/loss_tracking.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/static/stats.csv" beforeDir="false" afterPath="$PROJECT_DIR$/stats.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/static/tables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,11 +90,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Python" />
       <recent name="$PROJECT_DIR$/Frontend/static" />
       <recent name="$PROJECT_DIR$/Frontend" />
       <recent name="$PROJECT_DIR$/Python/pipeline" />
-      <recent name="$PROJECT_DIR$/Frontend/templates" />
     </key>
   </component>
   <component name="RunManager">

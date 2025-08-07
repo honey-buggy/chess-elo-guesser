@@ -114,140 +114,11 @@
         </p>
         <p class="ms-2">
             <strong>Point Estimate:</strong><br>
-            Simply speaking, it is the model's best prediction of the player's skill up to that move. Technically
-            speaking,
-            it is calculated by finding the rating value \(x\) that produces the most similarity between
-            the model’s output and a normal distribution centered at \(x\) with \(\sigma=200\). </p>
+            Simply put, it is the model's best prediction of the player's skill up to that move.</p>
         <p class="ms-2">
         </p>
         <hr>
-        <h4 style=" text-align: center;">Stuff for nerds:</h4><br>
-        <h5>Data and Training</h5>
-        <ul>
-            <li>The dataset started out with about 900,000,000 games sourced from the Lichess public database.</li>
-            <li>Games were filtered to only include "Rated Blitz" games with more than 10 half-moves.</li>
-            <li>Games were then placed into groups of interval 100 based on the average elo of both players (400-499,
-                500-599,...3000-3099).
-            </li>
-            <li>The final training dataset included 2,451,672 games, selected using stratified random sampling. The
-                sampling was balanced so that the largest group contributed no more than four times as many games as the
-                smallest group.</li>
-        </ul>
-        <h5>Labels</h5>
-        <p class="ms-2">
-            Each game's Elo was converted into a soft target using a normal distribution centered on the true Elo (σ =
-            200), and integrated across output brackets.
-        </p>
-        <ul>
-            <li>Training was done for over 7 epochs with batch size 64.</li>
-            <li>Loss was calculated using Kullback-Leibler loss across all time-steps.</li>
-        </ul>
-        <canvas id="loss-chart"></canvas>
-
-        <br>
-        <h5>Architecture</h5>
-        <p class="ms-2">
-            Each board "frame" is turned into an embedding in the following process:
-        </p>
-        <ol>
-            <li>For each square, a learned piece embedding is summed with a learned square embedding.</li>
-            <li>Special learned embeddings are added to the <i>from</i> and <i>to</i> squares for each move. If the move
-                is a promotion, a separate promotion embedding is added to the <i>to</i> square.
-            </li>
-            <li> The resulting board representation is passed through a Convolutional Neural Network (CNN) to create an
-                embedding.
-            </li>
-        </ol>
-        <p class="ms-2">
-            These embeddings are then alternatingly routed (for example: [1,2,3, 4] -> [1,3], [2, 4]) into two LSTM
-            networks (one for White, one for Black). (See full architecture in the source code. File is named net.py)
-        </p>
-        <p class="ms-2">
-            This CNN-LSTM architecture was chosen because it offered significantly faster inference relative to
-            transformer models, and uses CNN strengths for spatial pattern recognition. </p>
-        <p class="ms-2">
-            To compute the point estimate, the model finds the value of \(x\) that minimizes the mean squared error
-            between a normal distribution (mean=\(x\), \(\sigma\)=200) integrated over Elo brackets and the models
-            predicted distribution.</p>
-
-        <img src="architecture.svg" class="img-fluid" alt="architecture" style="margin: 0; width: 110%;">
-        <br>
-        <br>
-        <br>
-        <br>
-        <h5>Performance Metrics</h5>
-        <ul>
-            <li>The model was evaluated on 10,000 unseen games with >30 half moves.</li>
-            <li>It achieved an R<sup>2</sup> of 0.86, which means there is a strong correlation between predicted and
-                actual elo.
-            </li>
-            <li>It achieved an R-MSE of 277.
-            </li>
-        </ul>
-        <canvas id="scatter-chart"></canvas>
-        <br>
-        <h5>For people doing something similar:</h5>
-        <p class="ms-2"><strong>What worked well:</strong></p>
-        <ul>
-            <li>Using a Convolutional Neural Network to analyze board positions.</li>
-            <li>Using an LSTM allows for move by move evaluations.</li>
-            <li>Using separate LSTMs for each player.</li>
-            <li>Using soft targets in the form of KL-Divergence loss.</li>
-        </ul>
-        <p class="ms-2"><strong>What to avoid:</strong></p>
-        <ul>
-            <li>Using only the move sequence instead of board images. Doing this resulted in significantly worse
-                performance.
-            </li>
-            <li>Using hard targets such as cross-entropy loss. This resulted in the model taking a very long time to
-                converge.
-            </li>
-            <li>Using a single point target such as MSE. This resulted in the model tending to predict the means of the
-                outputs instead of actually learning anything.
-            </li>
-            <li>Using a single LSTM. This resulted in the model tending to predict the same distribution for both
-                players.
-            </li>
-        </ul>
-        <p class="ms-2"><strong>Things to try:</strong></p>
-        <ul>
-            <li>Expanding labels beyond 400–3000 so that distributions on the edge are not skewed.</li>
-            <li>Because Lichess games are capped at 300 half moves, a transformer could possibly be used to output a
-                final distribution for all games.
-            </li>
-            <li>Using a different distribution for the target rather than normally distributed. A static normal
-                distribution was chosen
-                for simplicity (also because that is how the Elo model was defined), however, most modern chess elo
-                models (such as what Lichess uses) actually use different distributions.
-            </li>
-        </ul>
-
-        <h5>Limitations</h5>
-        <ul>
-            <li><strong>Time controls/Variants: </strong>This model was trained only on standard blitz, therefore
-                the model's outputs for bullet, rapid,
-                classical, or any variant may be unreliable.
-            </li>
-            <li><strong>Hyperparameter tuning: </strong>Parameters were determined using random sampling rather than
-                more
-                rigorous search, so further optimization is likely possible.
-            </li>
-        </ul>
-        <h5>Future Work</h5>
-        <ol>
-            <li>Possibly expanding to other time controls.
-            </li>
-            <li>Releasing a lighter model for lower resource usage.</li>
-            <li>Releasing a heavier model to reduce R-MSE closer to the lower bound.</li>
-        </ol>
-        <h5>Tech Stack</h5>
-        <p class="ms-2">
-            Languages: Python 3.12.3, Java, Kotlin, JavaScript, HTML/CSS<br>
-            Frameworks & Libraries: PyTorch, Flask, MessagePack, bhlangonijr/chesslib, python-chess, ChessGround<br>
-            Tools: IntelliJ, PyCharm, WebStorm<br>
-            See full attributions on GitHub
-        </p>
-        <h5>Links: </h5>
+        <h5>For more information: </h5>
         <a href="https://github.com/gliucode/chess-elo-guesser" target="_blank" class="btn btn-dark"
            rel="noopener noreferrer"
            style="background-color: #a3a3a3">
@@ -262,7 +133,6 @@
         integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="module" src="index.js"></script>
-<script type="module" src="tables.js"></script>
 <script>
     const textarea = document.getElementById('pgn');
 
