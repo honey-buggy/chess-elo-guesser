@@ -31,8 +31,8 @@ distribution centered at x with standard deviation 200.
 - Games were filtered to only include "Rated Blitz" games with more than 10 half-moves.
 - Games were then placed into groups of interval 100 based on the average Elo of both players (400–499, 500–599, ...,
   3000–3099).
-- The final training dataset included 2,451,672 games, selected using stratified random sampling. The sampling was
-  balanced so that the largest group contributed no more than four times as many games as the smallest group.
+- The final training dataset included 2,451,672 games, selected using stratified random sampling. I selected at most 100,000 games per group so that in the end each group was
+  balanced so that ratio between the amount in the largest group and the smallest group was about 100:31.
 
 ### Labels
 
@@ -90,7 +90,7 @@ distribution (mean=`x`, σ=200) integrated over Elo brackets and the model’s p
 ### Limitations
 
 - **Time controls/Variants:** The model was trained only on standard blitz. Performance on bullet, rapid, classical, or
-  variants may be unreliable.
+  variants might be unreliable.
 - **Hyperparameter tuning:** Parameters were chosen via random sampling rather than formal optimization; performance may
   be further improved.
 
