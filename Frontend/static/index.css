@@ -6,7 +6,7 @@ body {
 }
 
 h3, h4, h5 {
-    color: #297bff !Important;
+    color: #5ea3ff !Important;
     font-weight: bold !Important;
     margin-bottom: 0.5rem;
 }
@@ -200,6 +200,8 @@ a.btn-dark i.fab.fa-github {
     font-size: 1.2rem;
     line-height: 1;
 }
+
+
 
 p {
     font-size: 20px !important;
