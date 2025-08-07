@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="create robot.txt">
+    <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="rewording">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.html" afterDir="false" />
     </list>
@@ -138,7 +138,7 @@
       <workItem from="1754453128452" duration="4643000" />
       <workItem from="1754500633553" duration="1726000" />
       <workItem from="1754535920069" duration="2707000" />
-      <workItem from="1754593426781" duration="27000" />
+      <workItem from="1754593426781" duration="332000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -260,7 +260,23 @@
       <option name="project" value="LOCAL" />
       <updated>1754540740086</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="create robot.txt">
+      <option name="closed" value="true" />
+      <created>1754593476687</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1754593476687</updated>
+    </task>
+    <task id="LOCAL-00017" summary="rewording">
+      <option name="closed" value="true" />
+      <created>1754593552836</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1754593552836</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,6 +310,7 @@
     <MESSAGE value="Reorganization" />
     <MESSAGE value="aesthetics" />
     <MESSAGE value="wording" />
+    <MESSAGE value="create robot.txt" />
     <MESSAGE value="rewording" />
     <option name="LAST_COMMIT_MESSAGE" value="rewording" />
   </component>
