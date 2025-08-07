@@ -9,7 +9,8 @@ played at.
 Go to [ceg.honeybuggy.com](https://ceg.honeybuggy.com)
 
 ## Code Explanation
-All the data was prepared in the DataParsing folder. In there is a Kotlin file which loads training data from a pgn file. It can load into either the data folder or the test_data folder so the training part knows where to look.
+All the data was prepared in the DataParsing folder. In there is a Kotlin file which loads training data from a pgn file. It can load into either the data folder or the test_data folder so the training part knows where to look. The data I used is not included to save storage space but I used all games between July 2024 and July 2025.  
+
 For training, there is a folder called Python/main which contains the data loading, model, and training script. 
 
 There is also a file inside Python called server.py which is what is used to talk to the front end. The frontend is located in the folder called Frontend. 
