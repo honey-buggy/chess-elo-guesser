@@ -1,12 +1,12 @@
-body {
-    background-color: #121416;
+html, body {
+    height: 100% !Important;
+    background: #000000;
     color: #e0e0e0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
 }
 
 h3, h4, h5 {
-    color: #5ea3ff !Important;
     font-weight: bold !Important;
     margin-bottom: 0.5rem;
 }
@@ -201,11 +201,14 @@ a.btn-dark i.fab.fa-github {
     line-height: 1;
 }
 
-
+.btn-dark {
+    background-color: #dadada !Important;
+}
 
 p {
     font-size: 20px !important;
 }
+
 li {
     font-size: 20px !important;
 }

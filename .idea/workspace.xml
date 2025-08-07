@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="deb2931d-fefd-4e2a-b738-6ff5438f420c" name="Changes" comment="Reorganization">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/static/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/static/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +116,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-fb887030ada0-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.21565.199" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-WS-251.27812.50" />
       </set>
     </attachedChunks>
   </component>
@@ -137,6 +138,7 @@
       <workItem from="1754419734221" duration="4406000" />
       <workItem from="1754453128452" duration="4643000" />
       <workItem from="1754500633553" duration="1726000" />
+      <workItem from="1754535920069" duration="1208000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
